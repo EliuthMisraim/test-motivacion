@@ -10,11 +10,9 @@
             --bg: #f0f4f8;
             --text: #2d3748;
             --white: #ffffff;
-            /* Colores para el efecto iridiscente */
-            --iri-1: #00d2ff;
-            --iri-2: #3a7bd5;
-            --iri-3: #6a11cb;
-            --iri-4: #2575fc;
+            --low: #e6fffa;
+            --mod: #bee3f8;
+            --high: #63b3ed;
         }
 
         body { 
@@ -27,122 +25,105 @@
         }
 
         .container { 
-            max-width: 600px; 
-            margin: 40px auto; 
+            max-width: 650px; 
+            margin: 20px auto; 
             background: var(--white); 
-            padding: 40px; 
+            padding: 30px; 
             border-radius: 20px; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
         }
 
         .hidden { display: none; }
 
-        h1 { color: var(--primary); text-align: center; font-size: 1.8em; }
+        /* Estilos del Logo */
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        .logo-container img { max-width: 180px; height: auto; }
 
-        .question { 
-            margin-bottom: 30px; 
-            animation: fadeIn 0.5s ease;
+        h1 { color: var(--primary); text-align: center; font-size: 1.8em; margin-top: 10px; }
+
+        /* Tabla de Interpretación en Inicio */
+        .interpretation-guide {
+            margin: 25px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .inter-card {
+            padding: 12px 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9em;
+            border: 1px solid rgba(0,0,0,0.05);
         }
+        .inter-card strong { min-width: 100px; }
+        .bg-low { background-color: var(--low); border-left: 5px solid #38b2ac; }
+        .bg-mod { background-color: var(--mod); border-left: 5px solid #4299e1; }
+        .bg-high { background-color: var(--high); color: white; border-left: 5px solid #2b6cb0; }
 
-        .options { 
-            display: flex; 
-            justify-content: space-between; 
-            margin-top: 15px; 
-            gap: 12px; 
-        }
+        /* Estilos de Preguntas */
+        .question { margin-bottom: 30px; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        .options { display: flex; justify-content: space-between; margin-top: 15px; gap: 10px; }
         .opt-btn { 
-            flex: 1; 
-            padding: 12px; 
-            border: 2px solid #edf2f7; 
-            border-radius: 12px; 
-            background: white; 
-            cursor: pointer; 
-            transition: all 0.2s;
-            font-weight: 600;
+            flex: 1; padding: 12px; border: 2px solid #edf2f7; border-radius: 12px; 
+            background: white; cursor: pointer; transition: all 0.2s; font-weight: 600;
         }
-
-        .opt-btn:hover { border-color: var(--iri-1); background: #f0faff; }
+        .opt-btn:hover { border-color: #3182ce; background: #f7fafc; }
         .opt-btn.active { background: var(--primary); color: white; border-color: var(--primary); transform: scale(1.05); }
 
+        /* Botón Principal */
         .btn-main { 
-            width: 100%; 
-            padding: 16px; 
-            background: var(--primary); 
-            color: white; 
-            border: none; 
-            border-radius: 12px; 
-            font-size: 1.1em; 
-            font-weight: bold;
-            cursor: pointer; 
-            margin-top: 30px;
-            transition: 0.3s;
+            width: 100%; padding: 16px; background: var(--primary); color: white; border: none; 
+            border-radius: 12px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 20px;
         }
 
-        .btn-main:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        /* EL BOTÓN IRIDISCENTE ESTILO STREAMLIT */
+        /* Botón Iridiscente Estilo Streamlit */
         .btn-iridescent {
-            display: inline-block;
-            width: 100%;
-            padding: 18px;
-            margin-top: 25px;
-            text-align: center;
-            text-decoration: none;
-            color: white !important;
-            font-weight: 800;
-            font-size: 1.2em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 15px;
-            border: none;
+            display: inline-block; width: 100%; padding: 18px; margin-top: 25px;
+            text-align: center; text-decoration: none; color: white !important;
+            font-weight: 800; font-size: 1.2em; text-transform: uppercase; letter-spacing: 1px;
+            border-radius: 15px; border: none;
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
+            background-size: 400% 400%; animation: gradientBG 8s ease infinite;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease;
         }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .btn-iridescent:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 25px rgba(35, 166, 213, 0.4);
-        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .btn-iridescent:hover { transform: scale(1.03); }
 
         .result-card { text-align: center; }
-        
         .score-circle { 
-            width: 100px; 
-            height: 100px; 
-            line-height: 100px; 
-            border-radius: 50%; 
-            background: #edf2f7; 
-            color: var(--primary); 
-            font-size: 2em; 
-            font-weight: 900;
-            margin: 20px auto; 
-            border: 4px solid var(--primary);
+            width: 90px; height: 90px; line-height: 90px; border-radius: 50%; background: #edf2f7; 
+            color: var(--primary); font-size: 2em; font-weight: 900; margin: 20px auto; border: 4px solid var(--primary);
         }
-
-        .footer-note { font-size: 0.85em; color: #a0aec0; margin-top: 30px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="screen-intro">
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo Vida sin Humo">
+        </div>
         <h1>Test de Motivación</h1>
-        <p style="text-align: center;">Evaluar tu motivación real es el primer paso hacia una vida libre de tabaco. Responde con total honestidad.</p>
+        <p style="text-align: center; font-size: 0.95em; color: #4a5568;">
+            Comprender tu disposición al cambio es el primer paso. El resultado se basa en la siguiente escala:
+        </p>
+
+        <div class="interpretation-guide">
+            <div class="inter-card bg-low">
+                <strong>0-9 puntos</strong> <span>Motivación Baja: Fase inicial de reflexión.</span>
+            </div>
+            <div class="inter-card bg-mod">
+                <strong>10-18 puntos</strong> <span>Motivación Moderada: Existe deseo real de cambio.</span>
+            </div>
+            <div class="inter-card bg-high">
+                <strong>19-27 puntos</strong> <span>Motivación Alta: Estás preparado/a para dar el paso.</span>
+            </div>
+        </div>
+
         <button class="btn-main" onclick="startTest()">Comenzar Evaluación</button>
     </div>
 
@@ -154,12 +135,12 @@
     <div id="screen-result" class="hidden result-card">
         <h2>Tu Resultado</h2>
         <div class="score-circle" id="final-score">0</div>
-        <h3 id="result-title" style="font-size: 1.5em; margin-bottom: 10px;"></h3>
+        <h3 id="result-title" style="margin-bottom: 10px;"></h3>
         <p id="result-text" style="color: #4a5568; margin-bottom: 30px;"></p>
         
         <div style="background: #f8fafc; padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0;">
-            <p style="margin: 0; font-weight: bold; color: var(--primary);">¿Listo para dar el siguiente paso?</p>
-            <p style="font-size: 0.95em;">El Dr. Jesús Díaz puede ayudarte a canalizar esta energía con técnicas de sofrología.</p>
+            <p style="margin: 0; font-weight: bold; color: var(--primary);">Tu camino hacia el éxito</p>
+            <p style="font-size: 0.95em;">El <strong>Psicoterapeuta Jesús Díaz</strong> puede acompañarte a lograr este objetivo mediante técnicas de sofrología.</p>
             
             <a href="https://www.doctoralia.es/jesus-diaz-sanchez-aranzueque/terapeuta-complementario/granada" 
                target="_blank" 
@@ -168,9 +149,8 @@
             </a>
         </div>
         
-        <p class="footer-note">
-            Tus respuestas son privadas y no se guardan en ningún servidor. 
-            Este test es una herramienta de orientación para tu colaboración con el Dr. Jesús Díaz.
+        <p style="font-size: 0.8em; color: #a0aec0; margin-top: 30px;">
+            Este test es una herramienta de orientación para tu proceso con el Psicoterapeuta Jesús Díaz.
         </p>
     </div>
 </div>
@@ -185,7 +165,9 @@
         "Imaginarme libre del tabaco me genera alivio, ilusión o tranquilidad",
         "Creo que, con apoyo adecuado, sería capaz de dejar de fumar",
         "Estoy dispuesto/a a hacer pequeños cambios para reducir o abandonar el tabaco",
-        "Me siento preparado/a para empezar este proceso, aunque no sea perfecto"
+        "Me siento preparado/a para empezar este proceso, aunque no sea perfecto",
+        /* Pregunta Final Refinada */
+        "¿Te gustaría recibir acompañamiento profesional para dejar de fumar de forma natural y sin sufrimiento?"
     ];
 
     let userAnswers = new Array(questions.length).fill(null);
@@ -222,10 +204,13 @@
 
     function calculateResult() {
         if (userAnswers.includes(null)) {
-            alert("Por favor, responde todas las preguntas para obtener una evaluación precisa.");
+            alert("Por favor, responde todas las preguntas para obtener tu perfil.");
             return;
         }
-        const score = userAnswers.reduce((a, b) => a + b, 0);
+        
+        // Sumamos solo las primeras 9 para mantener la escala original de 27 puntos
+        const score = userAnswers.slice(0, 9).reduce((a, b) => a + b, 0);
+        
         document.getElementById('screen-test').classList.add('hidden');
         document.getElementById('screen-result').classList.remove('hidden');
         document.getElementById('final-score').innerText = score;
@@ -233,13 +218,13 @@
         let title, text;
         if (score <= 9) {
             title = "Motivación Inicial";
-            text = "Estás empezando a cuestionar tu relación con el tabaco. Este es un gran primer paso. La sofrología puede ayudarte a explorar estas sensaciones sin juicio.";
+            text = "Estás en una fase de reflexión. Cada pensamiento sobre el cambio ya es valioso. Date tiempo para explorar tus sentimientos sin presión.";
         } else if (score <= 18) {
             title = "Motivación Moderada";
-            text = "Tienes un deseo genuino de cambio. Con el acompañamiento adecuado y las herramientas de relajación y visualización del Dr. Jesús Díaz, puedes lograrlo.";
+            text = "Existe un deseo real de cambio. Con el acompañamiento adecuado del Psicoterapeuta Jesús Díaz, este proceso puede activarse con éxito.";
         } else {
             title = "Motivación Alta";
-            text = "¡Estás listo/a! Tu decisión es sólida. Es el momento ideal para iniciar un proceso estructurado y profesional para dejar de fumar definitivamente.";
+            text = "¡Estás listo/a para el cambio! Tu motivación interna es sólida y es un excelente momento para iniciar un plan de abandono definitivo.";
         }
 
         document.getElementById('result-title').innerText = title;
