@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,216 +7,245 @@
     <style>
         :root {
             --primary: #2c7a7b;
-            /* Verde azulado relajante */
-            --bg: #f7fafc;
+            --bg: #f0f4f8;
             --text: #2d3748;
             --white: #ffffff;
+            /* Colores para el efecto iridiscente */
+            --iri-1: #00d2ff;
+            --iri-2: #3a7bd5;
+            --iri-3: #6a11cb;
+            --iri-4: #2575fc;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 20px; 
         }
 
-        .container {
-            max-width: 600px;
-            margin: 40px auto;
-            background: var(--white);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        .container { 
+            max-width: 600px; 
+            margin: 40px auto; 
+            background: var(--white); 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
         }
 
-        .hidden {
-            display: none;
+        .hidden { display: none; }
+
+        h1 { color: var(--primary); text-align: center; font-size: 1.8em; }
+
+        .question { 
+            margin-bottom: 30px; 
+            animation: fadeIn 0.5s ease;
         }
 
-        .question {
-            margin-bottom: 25px;
-            border-bottom: 1px solid #edf2f7;
-            padding-bottom: 20px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .options {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            gap: 10px;
+        .options { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-top: 15px; 
+            gap: 12px; 
         }
 
-        .opt-btn {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            background: none;
-            cursor: pointer;
+        .opt-btn { 
+            flex: 1; 
+            padding: 12px; 
+            border: 2px solid #edf2f7; 
+            border-radius: 12px; 
+            background: white; 
+            cursor: pointer; 
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .opt-btn:hover { border-color: var(--iri-1); background: #f0faff; }
+        .opt-btn.active { background: var(--primary); color: white; border-color: var(--primary); transform: scale(1.05); }
+
+        .btn-main { 
+            width: 100%; 
+            padding: 16px; 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 1.1em; 
+            font-weight: bold;
+            cursor: pointer; 
+            margin-top: 30px;
             transition: 0.3s;
         }
 
-        .opt-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
+        .btn-main:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        .opt-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .btn-main {
-            width: 100%;
-            padding: 15px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .result-card {
-            text-align: center;
-        }
-
-        .score-circle {
-            width: 80px;
-            height: 80px;
-            line-height: 80px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
-            font-size: 1.5em;
-            margin: 20px auto;
-        }
-
-        .cta-button {
+        /* EL BOTÓN IRIDISCENTE ESTILO STREAMLIT */
+        .btn-iridescent {
             display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            background: #3182ce;
-            color: white;
+            width: 100%;
+            padding: 18px;
+            margin-top: 25px;
+            text-align: center;
             text-decoration: none;
-            border-radius: 5px;
+            color: white !important;
+            font-weight: 800;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 15px;
+            border: none;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
         }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-iridescent:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(35, 166, 213, 0.4);
+        }
+
+        .result-card { text-align: center; }
+        
+        .score-circle { 
+            width: 100px; 
+            height: 100px; 
+            line-height: 100px; 
+            border-radius: 50%; 
+            background: #edf2f7; 
+            color: var(--primary); 
+            font-size: 2em; 
+            font-weight: 900;
+            margin: 20px auto; 
+            border: 4px solid var(--primary);
+        }
+
+        .footer-note { font-size: 0.85em; color: #a0aec0; margin-top: 30px; }
     </style>
 </head>
-
 <body>
 
-    <div class="container" id="app">
-        <div id="screen-intro">
-            <h1>Test de Motivación</h1>
-            <p>Evaluar tu motivación real es el primer paso hacia una vida libre de tabaco. No hay respuestas correctas,
-                solo tu verdad.</p>
-            <button class="btn-main" onclick="startTest()">Comenzar Evaluación</button>
-        </div>
-
-        <div id="screen-test" class="hidden">
-            <div id="questions-container"></div>
-            <button class="btn-main" onclick="calculateResult()">Ver mi Resultado</button>
-        </div>
-
-        <div id="screen-result" class="hidden result-card">
-            <h2>Tu Perfil de Motivación</h2>
-            <div class="score-circle" id="final-score">0</div>
-            <h3 id="result-title"></h3>
-            <p id="result-text"></p>
-
-            <div
-                style="background: #e6fffa; padding: 20px; border-radius: 10px; margin-top: 25px; border: 1px dashed var(--primary);">
-                <p style="margin-top: 0;"><strong>Tu camino hacia el cambio comienza aquí</strong></p>
-                <p>La sofrología, dirigida por un profesional, puede ser la clave para equilibrar este proceso y
-                    asegurar tu éxito.</p>
-                <a href="https://www.doctoralia.es/jesus-diaz-sanchez-aranzueque/terapeuta-complementario/granada"
-                    target="_blank" class="cta-button" style="background-color: #0075BC; font-weight: bold;">
-                    Reservar Cita con el Dr. Jesús Díaz
-                </a>
-            </div>
-
-            <p style="font-size: 0.8em; color: #718096; margin-top: 20px;">
-                Este test es una herramienta de orientación y no sustituye el diagnóstico de un profesional.
-            </p>
-        </div>
+<div class="container">
+    <div id="screen-intro">
+        <h1>Test de Motivación</h1>
+        <p style="text-align: center;">Evaluar tu motivación real es el primer paso hacia una vida libre de tabaco. Responde con total honestidad.</p>
+        <button class="btn-main" onclick="startTest()">Comenzar Evaluación</button>
     </div>
 
-    <script>
-        const questions = [
-            "Soy consciente de que fumar afecta negativamente a mi salud y a mi calidad de vida",
-            "Siento que seguir fumando ya no encaja con la persona que quiero ser",
-            "Pienso cada vez más en cómo sería mi vida sin tabaco",
-            "Quiero dejar de fumar por una decisión personal, no solo por presión externa",
-            "Siento que los beneficios de dejar de fumar superan a las dificultades del proceso",
-            "Imaginarme libre del tabaco me genera alivio, ilusión o tranquilidad",
-            "Creo que, con apoyo adecuado, sería capaz de dejar de fumar",
-            "Estoy dispuesto/a a hacer pequeños cambios para reducir o abandonar el tabaco",
-            "Me siento preparado/a para empezar este proceso, aunque no sea perfecto"
-        ];
+    <div id="screen-test" class="hidden">
+        <div id="questions-container"></div>
+        <button class="btn-main" onclick="calculateResult()">Ver mi Resultado</button>
+    </div>
 
-        let userAnswers = new Array(questions.length).fill(null);
+    <div id="screen-result" class="hidden result-card">
+        <h2>Tu Resultado</h2>
+        <div class="score-circle" id="final-score">0</div>
+        <h3 id="result-title" style="font-size: 1.5em; margin-bottom: 10px;"></h3>
+        <p id="result-text" style="color: #4a5568; margin-bottom: 30px;"></p>
+        
+        <div style="background: #f8fafc; padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0;">
+            <p style="margin: 0; font-weight: bold; color: var(--primary);">¿Listo para dar el siguiente paso?</p>
+            <p style="font-size: 0.95em;">El Dr. Jesús Díaz puede ayudarte a canalizar esta energía con técnicas de sofrología.</p>
+            
+            <a href="https://www.doctoralia.es/jesus-diaz-sanchez-aranzueque/terapeuta-complementario/granada" 
+               target="_blank" 
+               class="btn-iridescent">
+               Reservar Cita en Doctoralia
+            </a>
+        </div>
+        
+        <p class="footer-note">
+            Tus respuestas son privadas y no se guardan en ningún servidor. 
+            Este test es una herramienta de orientación para tu colaboración con el Dr. Jesús Díaz.
+        </p>
+    </div>
+</div>
 
-        function startTest() {
-            document.getElementById('screen-intro').classList.add('hidden');
-            document.getElementById('screen-test').classList.remove('hidden');
-            renderQuestions();
-        }
+<script>
+    const questions = [
+        "Soy consciente de que fumar afecta negativamente a mi salud y a mi calidad de vida",
+        "Siento que seguir fumando ya no encaja con la persona que quiero ser",
+        "Pienso cada vez más en cómo sería mi vida sin tabaco",
+        "Quiero dejar de fumar por una decisión personal, no solo por presión externa",
+        "Siento que los beneficios de dejar de fumar superan a las dificultades del proceso",
+        "Imaginarme libre del tabaco me genera alivio, ilusión o tranquilidad",
+        "Creo que, con apoyo adecuado, sería capaz de dejar de fumar",
+        "Estoy dispuesto/a a hacer pequeños cambios para reducir o abandonar el tabaco",
+        "Me siento preparado/a para empezar este proceso, aunque no sea perfecto"
+    ];
 
-        function renderQuestions() {
-            const container = document.getElementById('questions-container');
-            questions.forEach((q, i) => {
-                const qDiv = document.createElement('div');
-                qDiv.className = 'question';
-                qDiv.innerHTML = `
-                <p><strong>${i + 1}. ${q}</strong></p>
+    let userAnswers = new Array(questions.length).fill(null);
+
+    function startTest() {
+        document.getElementById('screen-intro').classList.add('hidden');
+        document.getElementById('screen-test').classList.remove('hidden');
+        renderQuestions();
+    }
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        questions.forEach((q, i) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question';
+            qDiv.innerHTML = `
+                <p><strong>${i+1}. ${q}</strong></p>
                 <div class="options">
                     ${[0, 1, 2, 3].map(v => `
                         <button class="opt-btn" onclick="setAnswer(${i}, ${v}, this)">${v}</button>
                     `).join('')}
                 </div>
             `;
-                container.appendChild(qDiv);
-            });
+            container.appendChild(qDiv);
+        });
+    }
+
+    function setAnswer(qIdx, val, btn) {
+        userAnswers[qIdx] = val;
+        const parent = btn.parentElement;
+        parent.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    function calculateResult() {
+        if (userAnswers.includes(null)) {
+            alert("Por favor, responde todas las preguntas para obtener una evaluación precisa.");
+            return;
+        }
+        const score = userAnswers.reduce((a, b) => a + b, 0);
+        document.getElementById('screen-test').classList.add('hidden');
+        document.getElementById('screen-result').classList.remove('hidden');
+        document.getElementById('final-score').innerText = score;
+
+        let title, text;
+        if (score <= 9) {
+            title = "Motivación Inicial";
+            text = "Estás empezando a cuestionar tu relación con el tabaco. Este es un gran primer paso. La sofrología puede ayudarte a explorar estas sensaciones sin juicio.";
+        } else if (score <= 18) {
+            title = "Motivación Moderada";
+            text = "Tienes un deseo genuino de cambio. Con el acompañamiento adecuado y las herramientas de relajación y visualización del Dr. Jesús Díaz, puedes lograrlo.";
+        } else {
+            title = "Motivación Alta";
+            text = "¡Estás listo/a! Tu decisión es sólida. Es el momento ideal para iniciar un proceso estructurado y profesional para dejar de fumar definitivamente.";
         }
 
-        function setAnswer(qIdx, val, btn) {
-            userAnswers[qIdx] = val;
-            const parent = btn.parentElement;
-            parent.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
-
-        function calculateResult() {
-            if (userAnswers.includes(null)) {
-                alert("Por favor, responde todas las preguntas.");
-                return;
-            }
-            const score = userAnswers.reduce((a, b) => a + b, 0);
-            document.getElementById('screen-test').classList.add('hidden');
-            document.getElementById('screen-result').classList.remove('hidden');
-            document.getElementById('final-score').innerText = score;
-
-            let title, text;
-            if (score <= 9) {
-                title = "Motivación Baja";
-                text = "Estás en una fase inicial de reflexión. Cada pensamiento sobre el cambio ya es valioso. Date tiempo para explorar tus sentimientos sin presión.";
-            } else if (score <= 18) {
-                title = "Motivación Moderada";
-                text = "Existe un deseo real de cambio. Con estrategias personalizadas, el proceso puede activarse con éxito. Es un buen momento para buscar apoyo.";
-            } else {
-                title = "Motivación Alta";
-                text = "Estás preparado/a para dar el paso. La decisión ha madurado y es un excelente momento para iniciar un plan estructurado.";
-            }
-
-            document.getElementById('result-title').innerText = title;
-            document.getElementById('result-text').innerText = text;
-        }
-    </script>
+        document.getElementById('result-title').innerText = title;
+        document.getElementById('result-text').innerText = text;
+        window.scrollTo(0, 0);
+    }
+</script>
 </body>
-
 </html>
