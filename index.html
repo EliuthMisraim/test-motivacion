@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Motivación - Vida sin Humo</title>
+    <style>
+        :root {
+            --primary: #2c7a7b; /* Verde azulado relajante */
+            --bg: #f7fafc;
+            --text: #2d3748;
+            --white: #ffffff;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 40px auto; background: var(--white); padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .hidden { display: none; }
+        .question { margin-bottom: 25px; border-bottom: 1px solid #edf2f7; padding-bottom: 20px; }
+        .options { display: flex; justify-content: space-between; margin-top: 10px; gap: 10px; }
+        .opt-btn { flex: 1; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; background: none; cursor: pointer; transition: 0.3s; }
+        .opt-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .opt-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .btn-main { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer; margin-top: 20px; }
+        .result-card { text-align: center; }
+        .score-circle { width: 80px; height: 80px; line-height: 80px; border-radius: 50%; background: var(--primary); color: white; font-size: 1.5em; margin: 20px auto; }
+        .cta-button { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #3182ce; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <div id="screen-intro">
+        <h1>Test de Motivación</h1>
+        <p>Evaluar tu motivación real es el primer paso hacia una vida libre de tabaco. No hay respuestas correctas, solo tu verdad.</p>
+        <button class="btn-main" onclick="startTest()">Comenzar Evaluación</button>
+    </div>
+
+    <div id="screen-test" class="hidden">
+        <div id="questions-container"></div>
+        <button class="btn-main" onclick="calculateResult()">Ver mi Resultado</button>
+    </div>
+
+    <div id="screen-result" class="hidden result-card">
+        <h2>Tu Perfil de Motivación</h2>
+        <div class="score-circle" id="final-score">0</div>
+        <h3 id="result-title"></h3>
+        <p id="result-text"></p>
+        <hr>
+        <p><strong>Siguiente paso:</strong> La sofrología puede ayudarte a equilibrar este proceso.</p>
+        <a href="#" class="cta-button">Hablar con un Especialista</a>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        "Soy consciente de que fumar afecta negativamente a mi salud y a mi calidad de vida",
+        "Siento que seguir fumando ya no encaja con la persona que quiero ser",
+        "Pienso cada vez más en cómo sería mi vida sin tabaco",
+        "Quiero dejar de fumar por una decisión personal, no solo por presión externa",
+        "Siento que los beneficios de dejar de fumar superan a las dificultades del proceso",
+        "Imaginarme libre del tabaco me genera alivio, ilusión o tranquilidad",
+        "Creo que, con apoyo adecuado, sería capaz de dejar de fumar",
+        "Estoy dispuesto/a a hacer pequeños cambios para reducir o abandonar el tabaco",
+        "Me siento preparado/a para empezar este proceso, aunque no sea perfecto"
+    ];
+
+    let userAnswers = new Array(questions.length).fill(null);
+
+    function startTest() {
+        document.getElementById('screen-intro').classList.add('hidden');
+        document.getElementById('screen-test').classList.remove('hidden');
+        renderQuestions();
+    }
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        questions.forEach((q, i) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question';
+            qDiv.innerHTML = `
+                <p><strong>${i+1}. ${q}</strong></p>
+                <div class="options">
+                    ${[0, 1, 2, 3].map(v => `
+                        <button class="opt-btn" onclick="setAnswer(${i}, ${v}, this)">${v}</button>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(qDiv);
+        });
+    }
+
+    function setAnswer(qIdx, val, btn) {
+        userAnswers[qIdx] = val;
+        const parent = btn.parentElement;
+        parent.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    function calculateResult() {
+        if (userAnswers.includes(null)) {
+            alert("Por favor, responde todas las preguntas.");
+            return;
+        }
+        const score = userAnswers.reduce((a, b) => a + b, 0);
+        document.getElementById('screen-test').classList.add('hidden');
+        document.getElementById('screen-result').classList.remove('hidden');
+        document.getElementById('final-score').innerText = score;
+
+        let title, text;
+        if (score <= 9) {
+            title = "Motivación Baja";
+            text = "Estás en una fase inicial de reflexión. Cada pensamiento sobre el cambio ya es valioso. Date tiempo para explorar tus sentimientos sin presión.";
+        } else if (score <= 18) {
+            title = "Motivación Moderada";
+            text = "Existe un deseo real de cambio. Con estrategias personalizadas, el proceso puede activarse con éxito. Es un buen momento para buscar apoyo.";
+        } else {
+            title = "Motivación Alta";
+            text = "Estás preparado/a para dar el paso. La decisión ha madurado y es un excelente momento para iniciar un plan estructurado.";
+        }
+
+        document.getElementById('result-title').innerText = title;
+        document.getElementById('result-text').innerText = text;
+    }
+</script>
+</body>
+</html>
