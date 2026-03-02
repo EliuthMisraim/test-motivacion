@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test de Motivación - Vida sin Humo</title>
+    <title>Test de Motivación para Dejar de Fumar</title>
     <style>
         :root {
             --primary: #2c7a7b;
             --bg: #f0f4f8;
             --text: #2d3748;
             --white: #ffffff;
-            --low: #e6fffa;
-            --mod: #bee3f8;
-            --high: #63b3ed;
+            /* Colores de las cartas según tus imágenes */
+            --low-bg: #f0f9ff;
+            --low-accent: #38b2ac;
+            --mod-bg: #eff6ff;
+            --mod-accent: #3b82f6;
+            --high-bg: #2563eb;
+            --high-text: #ffffff;
         }
 
         body { 
@@ -25,44 +29,69 @@
         }
 
         .container { 
-            max-width: 650px; 
+            max-width: 700px; 
             margin: 20px auto; 
             background: var(--white); 
-            padding: 30px; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            padding: 40px; 
+            border-radius: 24px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
         }
 
         .hidden { display: none; }
 
-        /* Estilos del Logo */
         .logo-container { text-align: center; margin-bottom: 20px; }
         .logo-container img { max-width: 180px; height: auto; }
 
-        h1 { color: var(--primary); text-align: center; font-size: 1.8em; margin-top: 10px; }
+        h1 { color: var(--primary); text-align: center; font-size: 1.8em; margin-bottom: 20px; }
+        h2 { color: var(--primary); font-size: 1.4em; border-bottom: 2px solid #edf2f7; padding-bottom: 8px; margin-top: 30px; }
+        
+        .intro-text { text-align: justify; color: #4a5568; margin-bottom: 25px; }
 
-        /* Tabla de Interpretación en Inicio */
-        .interpretation-guide {
-            margin: 25px 0;
+        .how-it-works { background: #f8fafc; padding: 20px; border-radius: 15px; margin-bottom: 30px; border: 1px solid #e2e8f0; }
+        .how-it-works ul { padding-left: 20px; }
+        .scale-box { background: var(--primary); color: white; padding: 15px; border-radius: 10px; text-align: center; font-weight: bold; font-size: 0.9em; margin-top: 15px; }
+
+        /* Estilos de las Cartas de Interpretación con Iconos */
+        .interpretation-guide { margin: 25px 0; display: flex; flex-direction: column; gap: 15px; }
+        
+        .inter-card { 
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            align-items: flex-start;
+            padding: 20px; 
+            border-radius: 16px; 
+            border: 1px solid #e2e8f0;
+            gap: 20px;
+            transition: transform 0.2s;
         }
-        .inter-card {
-            padding: 12px 15px;
-            border-radius: 10px;
+
+        .inter-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-size: 0.9em;
-            border: 1px solid rgba(0,0,0,0.05);
+            justify-content: center;
         }
-        .inter-card strong { min-width: 100px; }
-        .bg-low { background-color: var(--low); border-left: 5px solid #38b2ac; }
-        .bg-mod { background-color: var(--mod); border-left: 5px solid #4299e1; }
-        .bg-high { background-color: var(--high); color: white; border-left: 5px solid #2b6cb0; }
 
-        /* Estilos de Preguntas */
+        .inter-content { flex-grow: 1; }
+        .inter-content strong { display: block; font-size: 1.1em; margin-bottom: 4px; }
+        .inter-content span { display: block; font-weight: 800; font-size: 1.2em; margin-bottom: 8px; }
+        .inter-content p { margin: 0; font-size: 0.95em; line-height: 1.5; }
+
+        /* Variantes de Color */
+        .card-low { background-color: var(--low-bg); border-left: 6px solid var(--low-accent); }
+        .card-low .inter-icon svg { fill: var(--low-accent); }
+        .card-low span { color: #1a4d4a; }
+
+        .card-mod { background-color: var(--mod-bg); border-left: 6px solid var(--mod-accent); }
+        .card-mod .inter-icon svg { fill: var(--mod-accent); }
+        .card-mod span { color: #1e3a8a; }
+
+        .card-high { background-color: var(--high-bg); color: var(--high-text); border-left: 6px solid #1e40af; }
+        .card-high .inter-icon svg { fill: var(--white); }
+        .card-high p, .card-high span { color: var(--white); }
+
+        /* Botones y Preguntas */
         .question { margin-bottom: 30px; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -71,18 +100,15 @@
             flex: 1; padding: 12px; border: 2px solid #edf2f7; border-radius: 12px; 
             background: white; cursor: pointer; transition: all 0.2s; font-weight: 600;
         }
-        .opt-btn:hover { border-color: #3182ce; background: #f7fafc; }
         .opt-btn.active { background: var(--primary); color: white; border-color: var(--primary); transform: scale(1.05); }
 
-        /* Botón Principal */
         .btn-main { 
-            width: 100%; padding: 16px; background: var(--primary); color: white; border: none; 
-            border-radius: 12px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 20px;
+            width: 100%; padding: 18px; background: var(--primary); color: white; border: none; 
+            border-radius: 15px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 20px;
         }
 
-        /* Botón Iridiscente Estilo Streamlit */
         .btn-iridescent {
-            display: inline-block; width: 100%; padding: 18px; margin-top: 25px;
+            display: inline-block; width: 100%; padding: 20px; margin-top: 25px;
             text-align: center; text-decoration: none; color: white !important;
             font-weight: 800; font-size: 1.2em; text-transform: uppercase; letter-spacing: 1px;
             border-radius: 15px; border: none;
@@ -96,7 +122,7 @@
         .result-card { text-align: center; }
         .score-circle { 
             width: 90px; height: 90px; line-height: 90px; border-radius: 50%; background: #edf2f7; 
-            color: var(--primary); font-size: 2em; font-weight: 900; margin: 20px auto; border: 4px solid var(--primary);
+            color: var(--primary); font-size: 2.2em; font-weight: 900; margin: 20px auto; border: 4px solid var(--primary);
         }
     </style>
 </head>
@@ -107,20 +133,59 @@
         <div class="logo-container">
             <img src="logo.png" alt="Logo Vida sin Humo">
         </div>
+        
         <h1>Test de Motivación para Dejar de Fumar</h1>
-        <p style="text-align: center; font-size: 0.95em; color: #4a5568;">
-            Evaluar tu motivación real es el primer paso hacia una vida libre de tabaco. Este test te ayudará a comprender dónde te encuentras en tu camino personal y qué tipo de apoyo puede ser más efectivo para ti en este momento. Este test se basa en una escala sencilla de 0 a 3 puntos para cada afirmación. Tómate tu tiempo para leer cada enunciado con calma y responder desde la honestidad, sin juzgarte. No hay respuestas correctas o incorrectas, solo tu verdad en este momento.
+        <p class="intro-text">
+            Evaluar tu motivación real es el primer paso hacia una vida libre de tabaco. Este test te ayudará a comprender dónde te encuentras en tu camino personal y qué tipo de apoyo puede ser más efectivo para ti en este momento.
         </p>
 
+        <h2>Cómo funciona este Test</h2>
+        <div class="how-it-works">
+            <p><strong>Preparación para la evaluación:</strong></p>
+            <p>Este test se basa en una escala sencilla de 0 a 3 puntos para cada afirmación. Tómate tu tiempo para leer cada enunciado con calma y responder desde la honestidad, sin juzgarte.</p>
+            <ul>
+                <li>Lee cada afirmación con atención</li>
+                <li>Marca tu nivel de acuerdo (0-3)</li>
+                <li>Suma tu puntuación total al final</li>
+            </ul>
+            <div class="scale-box">
+                Escala: 0 = Nada de acuerdo | 1 = Poco de acuerdo | 2 = Bastante de acuerdo | 3 = Totalmente de acuerdo
+            </div>
+        </div>
+
+        <h2>Interpreta Tu Puntuación</h2>
         <div class="interpretation-guide">
-            <div class="inter-card bg-low">
-                <strong>0-9 puntos</strong> <span>Motivación Baja: Estás en una fase inicial de reflexión. No es el momento de forzarte, sino de tomar conciencia gradualmente. Cada pensamiento sobre el cambio ya es valioso. Date tiempo y espacio para explorar tus sentimientos sin presión.</span>
+            <div class="inter-card card-low">
+                <div class="inter-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2,22V20C2,20 7,18 12,18C17,18 22,20 22,20V22H2M12,16C9,16 6,14.5 6,11C6,7 9,2 12,2C15,2 18,7 18,11C18,14.5 15,16 12,16Z"/></svg>
+                </div>
+                <div class="inter-content">
+                    <strong>0-9 puntos</strong>
+                    <span>Motivación Baja</span>
+                    <p>Estás en una fase inicial de reflexión. No es el momento de forzarte, sino de tomar conciencia gradualmente. Cada pensamiento sobre el cambio ya es valioso. Date tiempo y espacio para explorar tus sentimientos sin presión.</p>
+                </div>
             </div>
-            <div class="inter-card bg-mod">
-                <strong>10-18 puntos</strong> <span>Motivación Moderada: Existe un deseo real de cambio en tu interior. Con el acompañamiento adecuado y estrategias personalizadas, el proceso puede activarse con éxito. Es un buen momento para buscar apoyo profesional y diseñar un plan realista.</span>
+
+            <div class="inter-card card-mod">
+                <div class="inter-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6C9.5,6 7.5,8 7.5,10.5C7.5,13.5 12,18 12,18C12,18 16.5,13.5 16.5,10.5C16.5,8 14.5,6 12,6Z"/></svg>
+                </div>
+                <div class="inter-content">
+                    <strong>10-18 puntos</strong>
+                    <span>Motivación Moderada</span>
+                    <p>Existe un deseo real de cambio en tu interior. Con el acompañamiento adecuado y estrategias personalizadas, el proceso puede activarse con éxito. Es un buen momento para buscar apoyo profesional y diseñar un plan realista.</p>
+                </div>
             </div>
-            <div class="inter-card bg-high">
-                <strong>19-27 puntos</strong> <span>Motivación Alta: Estás preparado/a para dar el paso. La decisión ha madurado en ti y es un excelente momento para iniciar un plan estructurado de abandono del tabaco. Tu motivación interna es sólida y puedes aprovechar este impulso positivo.</span>
+
+            <div class="inter-card card-high">
+                <div class="inter-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,22H23L14,6Z"/></svg>
+                </div>
+                <div class="inter-content">
+                    <strong>19-27 puntos</strong>
+                    <span>Motivación Alta</span>
+                    <p>Estás preparado/a para dar el paso. La decisión ha madurado en ti y es un excelente momento para iniciar un plan estructurado de abandono del tabaco. Tu motivación interna es sólida y puedes aprovechar este impulso positivo.</p>
+                </div>
             </div>
         </div>
 
@@ -129,18 +194,18 @@
 
     <div id="screen-test" class="hidden">
         <div id="questions-container"></div>
-        <button class="btn-main" onclick="calculateResult()">Ver mi Resultado</button>
+        <button class="btn-main" onclick="calculateResult()">Ver mi Resultado Final</button>
     </div>
 
     <div id="screen-result" class="hidden result-card">
         <h2>Tu Resultado</h2>
         <div class="score-circle" id="final-score">0</div>
         <h3 id="result-title" style="margin-bottom: 10px;"></h3>
-        <p id="result-text" style="color: #4a5568; margin-bottom: 30px;"></p>
+        <p id="result-text" style="color: #4a5568; margin-bottom: 30px; text-align: justify;"></p>
         
-        <div style="background: #f8fafc; padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0;">
-            <p style="margin: 0; font-weight: bold; color: var(--primary);">Tu camino hacia el éxito</p>
-            <p style="font-size: 0.95em;">El <strong>Psicoterapeuta Jesús Díaz</strong> puede acompañarte a lograr este objetivo mediante técnicas de sofrología.</p>
+        <div style="background: #f8fafc; padding: 30px; border-radius: 15px; border: 1px solid #e2e8f0;">
+            <p style="margin: 0; font-weight: bold; color: var(--primary);">Tu transformación comienza aquí</p>
+            <p style="font-size: 0.95em;">El <strong>Psicoterapeuta Jesús Díaz</strong> te ayudará a lograrlo mediante técnicas avanzadas de sofrología.</p>
             
             <a href="https://www.doctoralia.es/jesus-diaz-sanchez-aranzueque/terapeuta-complementario/granada" 
                target="_blank" 
@@ -148,10 +213,6 @@
                Reservar Cita en Doctoralia
             </a>
         </div>
-        
-        <p style="font-size: 0.8em; color: #a0aec0; margin-top: 30px;">
-            Este test es una herramienta de orientación para tu proceso con el Psicoterapeuta Jesús Díaz.
-        </p>
     </div>
 </div>
 
@@ -166,8 +227,7 @@
         "Creo que, con apoyo adecuado, sería capaz de dejar de fumar",
         "Estoy dispuesto/a a hacer pequeños cambios para reducir o abandonar el tabaco",
         "Me siento preparado/a para empezar este proceso, aunque no sea perfecto",
-        /* Pregunta Final Refinada */
-        "¿Te gustaría recibir acompañamiento profesional para dejar de fumar de forma natural y sin sufrimiento?"
+        "¿Te gustaría recibir acompañamiento profesional para dejar de fumar de forma definitiva y sin sufrimiento?"
     ];
 
     let userAnswers = new Array(questions.length).fill(null);
@@ -176,6 +236,7 @@
         document.getElementById('screen-intro').classList.add('hidden');
         document.getElementById('screen-test').classList.remove('hidden');
         renderQuestions();
+        window.scrollTo(0, 0);
     }
 
     function renderQuestions() {
@@ -204,11 +265,10 @@
 
     function calculateResult() {
         if (userAnswers.includes(null)) {
-            alert("Por favor, responde todas las preguntas para obtener tu perfil.");
+            alert("Por favor, responde todas las preguntas para obtener una evaluación precisa.");
             return;
         }
         
-        // Sumamos solo las primeras 9 para mantener la escala original de 27 puntos
         const score = userAnswers.slice(0, 9).reduce((a, b) => a + b, 0);
         
         document.getElementById('screen-test').classList.add('hidden');
@@ -217,14 +277,14 @@
 
         let title, text;
         if (score <= 9) {
-            title = "Motivación Inicial";
-            text = "Estás en una fase de reflexión. Cada pensamiento sobre el cambio ya es valioso. Date tiempo para explorar tus sentimientos sin presión.";
+            title = "Motivación Baja";
+            text = "Estás en una fase inicial de reflexión. No es el momento de forzarte, sino de tomar conciencia gradualmente. Cada pensamiento sobre el cambio ya es valioso. Date tiempo y espacio para explorar tus sentimientos sin presión.";
         } else if (score <= 18) {
             title = "Motivación Moderada";
-            text = "Existe un deseo real de cambio. Con el acompañamiento adecuado del Psicoterapeuta Jesús Díaz, este proceso puede activarse con éxito.";
+            text = "Existe un deseo real de cambio en tu interior. Con el acompañamiento adecuado y estrategias personalizadas, el proceso puede activarse con éxito. Es un buen momento para buscar apoyo profesional y diseñar un plan realista.";
         } else {
             title = "Motivación Alta";
-            text = "¡Estás listo/a para el cambio! Tu motivación interna es sólida y es un excelente momento para iniciar un plan de abandono definitivo.";
+            text = "Estás preparado/a para dar el paso. La decisión ha madurado en ti y es un excelente momento para iniciar un plan estructurado de abandono del tabaco. Tu motivación interna es sólida y puedes aprovechar este impulso positivo.";
         }
 
         document.getElementById('result-title').innerText = title;
@@ -233,5 +293,4 @@
     }
 </script>
 </body>
-
 </html>
